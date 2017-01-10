@@ -14,20 +14,23 @@ function sumar(){
 	var num1 = data1.value;
 	var num2 = data2.value;
 	// string -> array
-	var arr1 = data1.value;
-	var arr2 = data2.value;
-	var turned_into_array1 = arr1.split('');
-	var turned_into_array2 = arr2.split('');
-	console.log(turned_into_array1);
-	function cast_to_number(cifras){
-		for(var posicion in cifras ){
-			//console.log("cifras " + posicion + " = " + cifras[posicion]);
-			enteros = new Number(cifras[posicion]);
-			console.log(enteros);
-		}	
+	function display_extra(){
+		// turn the values of the arrays into strings
+		var arr1 = data1.value;
+		var arr2 = data2.value;
+		var turned_into_array1 = arr1.split('');
+		var turned_into_array2 = arr2.split('');
+		var par = [turned_into_array1, turned_into_array2];
+		for(var i = 0; i < turned_into_array1.length; i++){
+			turned_into_array1[i] = +turned_into_array1;
+		}
+		console.log(typeof turned_into_array1[1]);
+		for(var i = 0; i < turned_into_array2.length; i++){
+			turned_into_array2[i] = +turned_into_array2;
+		}
+		console.log(typeof turned_into_array2[1]);
 	}
-	cast_to_number(turned_into_array1);
-	cast_to_number(turned_into_array2);
+	display_extra();
 	// posicionamiento de los valores
 	var longitud1 = new Number(content1.length);
 	var longitud2 = new Number(content2.length);
