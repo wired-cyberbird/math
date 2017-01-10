@@ -16,9 +16,18 @@ function sumar(){
 	// string -> array
 	var arr1 = data1.value;
 	var arr2 = data2.value;
-	var turn_into_array1 = arr1.split('');
-	var turn_into_array2 = arr2.split('');
-	console.log(turn_into_array1);
+	var turned_into_array1 = arr1.split('');
+	var turned_into_array2 = arr2.split('');
+	console.log(turned_into_array1);
+	function cast_to_number(cifras){
+		for(var posicion in cifras ){
+			//console.log("cifras " + posicion + " = " + cifras[posicion]);
+			enteros = new Number(cifras[posicion]);
+			console.log(enteros);
+		}	
+	}
+	cast_to_number(turned_into_array1);
+	cast_to_number(turned_into_array2);
 	// posicionamiento de los valores
 	var longitud1 = new Number(content1.length);
 	var longitud2 = new Number(content2.length);
