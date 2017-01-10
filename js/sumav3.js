@@ -14,17 +14,11 @@ function sumar(){
 	var num1 = data1.value;
 	var num2 = data2.value;
 	// string -> array
-	//console.log(Array.isArray(content1));
 	var arr1 = data1.value;
 	var arr2 = data2.value;
-	console.log(arr1[2]);
-	function split_string(string, separator){
-		splited_str = string.split(separator);
-		console.log('The array has ' + splited_str.length + ' elements: ' + splited_str.join('/'));
-		console.log(Array.isArray(splited_str));
-	}
-	var space = ",";
-	split_string(arr1,space);
+	var turn_into_array1 = arr1.split('');
+	var turn_into_array2 = arr2.split('');
+	console.log(turn_into_array1);
 	// posicionamiento de los valores
 	var longitud1 = new Number(content1.length);
 	var longitud2 = new Number(content2.length);
@@ -57,7 +51,6 @@ function sumar(){
 	// convertir los valores en string a numeros
 	var numero1 = new Number(content1);
 	var numero2 = new Number(content2);
-	console.log(Array.isArray(numero1));
 	// efectua la operacion de suma
 	var resultado = numero1 + numero2;
 	// espacio donde ira la respuesta
