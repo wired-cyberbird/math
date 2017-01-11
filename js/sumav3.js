@@ -12,14 +12,17 @@ function sumar(){
 	// extraer la informacion de los campos del formulario
 	var content1 = data1.value;
 	var content2 = data2.value;
-	// datos para mostrar
+	// copia de la informacion para plasmarse en el campo de vision
 	var num1 = data1.value;
 	var num2 = data2.value;
 	// posicionamiento de los valores
 	var longitud1 = new Number(content1.length);
 	var longitud2 = new Number(content2.length);
+	// evalua cual valor de los dos tienen mayor longitud
 	if(content1.length > content2.length){
         //console.log(longitud1 - longitud2);
+        /* Este ciclo agrega un espacio en blanco por cada digito
+        del numero superior*/
         for (var i = longitud2; i < longitud1 ; i++) {
         	(function(){
         		num2 = '&nbsp;&nbsp;' + num2;
@@ -27,14 +30,13 @@ function sumar(){
         	// desplegar los valores en el tablero
 			output1.innerHTML = content1;
 			output2.innerHTML = num2;
-
 		}
-		var diferencia = content1.length - content2.length;
-		diferencia = content1.length - diferencia;
-		console.log('diferencia1 = ' + diferencia);
 		var max = content1.length;
+		var min = content2.length;
 	}else if(content2.length > content1.length){
 		//console.log(longitud2 - longitud1);
+		/* Este ciclo agrega un espacio en blanco por cada digito
+        del numero inferior*/
 		for (var i = longitud1; i < longitud2 ; i++) {
         	(function(){
         		num1 = '&nbsp;&nbsp;' + num1;
@@ -43,17 +45,19 @@ function sumar(){
 			output1.innerHTML = num1;
 			output2.innerHTML = content2;
 		}
-		var diferencia = content2.length - content1.length;
-		diferencia = content2.length - diferencia;
-		console.log('diferencia2 = ' + diferencia);
+		
 		var max = content2.length;
+		var min = content1.length;
 	}else{
+		// si los valores tienen la misma longitud no hay necesidad de acomodarlos
 		//console.log('son iguales');
 		// desplegar los valores en el tablero
 		output1.innerHTML = content1;
 		output2.innerHTML = content2;
 		var max = content1.length;
+		var min = content2.length;
 	}
+	//console.log(min);
 	// convertir los valores en string a numeros
 	var numero1 = new Number(content1);
 	var numero2 = new Number(content2);
@@ -64,49 +68,54 @@ function sumar(){
 	// despliega el resultado de la operacion
 	suma.innerHTML = resultado;
 	// string -> array
-	// turn the values of the arrays into strings
+	// saca otra copia de los valores 
 	var arr1 = data1.value;
 	var arr2 = data2.value;
+	// convierte los strings en arrays, separa cada caracter como elemento y los convierte en numeros
 	var turned_into_array1 = arr1.split('').map(Number);
 	var turned_into_array2 = arr2.split('').map(Number);
-	var cindex1 = arr1.length - 1;
-	var cindex2 = arr2.length - 1;
 	//console.log(turned_into_array1[1]);
 	//console.log(content1.length);
-	function extra(diferencia, max){
-		console.log("extra");
-		for(var i = 0; i < diferencia; i++){	
-
-			var currentindex = turned_into_array1[cindex1];
-			console.log(currentindex);
-			console.log(turned_into_array1);
-			console.log(turned_into_array1.indexOf(currentindex));
-			var indice = turned_into_array1.indexOf(currentindex);
-
-
-			var suma = turned_into_array1[cindex1] + turned_into_array2[cindex2];
-			console.log(suma);
-			
+	//Invierte los valores de los arrays
+	var reverse1 = turned_into_array1.reverse();
+	//console.log(reverse1);
+	var reverse2 = turned_into_array2.reverse();
+	//console.log(reverse2); 
+	//Verifica si la suma vertical de los digitos es mayor a un digito
+	function extra(){
+		//console.log("extra");
+		// crea un array que almacena los valores extra
+		var extra = new Array();
+		// asigna la longitud del valor mas corto
+		extra.length = min;
+		//console.log(extra);
+		// suma los valores de derecha a izquierda
+		for(var i = 0; i < min; i++){
+			var suma = reverse1[i] + reverse2[i];
+			//console.log(suma);
+			// evalua si la suma es mayor a 9 entonces asigna que sobra 1 
+			// en caso contrario asigna un espacio en blanco
 			if(suma > 9){
-				var extra = new Array();
-				extra.length = arr1.length;
-				extra.fill("&nbsp;&nbsp;");
-				extra[indice] = 1;
-				add.innerHTML = extra.join('');
-				console.log(' + 9');
-				console.log(extra);
+				extra[i] = 1;
+			}else if(suma < 9){
+				extra[i] = '&nbsp;&nbsp;';
 			}
 
-				turned_into_array1[(cindex1--)];
-				turned_into_array2[(cindex2--)];
-
-				console.log("+");
 		}
+		//console.log(extra);
+		extra.reverse();
+		//console.log(extra);
+		// despliega los valores en su espacio y agrega un espacio en blanco para ajustar el espacio
+		add.innerHTML = '&nbsp;&nbsp;' + extra.join('');
 	}
-	extra(diferencia);
+	extra();
 	// vaciar los campos del formulario
 	data1.value = "";
 	data2.value = "";	
 }
-// agregar un evento al boton del formulario
-activar.addEventListener("click", sumar);
+// dispara la funcion del programa mediante un click 
+activar.addEventListener("click",function(){
+	// limpia el area de sobrantes
+	add.innerHTML = "";
+	sumar();
+});
